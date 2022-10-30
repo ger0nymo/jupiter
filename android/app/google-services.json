@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "145280665477",
+    "project_id": "jupiter-3db6c",
+    "storage_bucket": "jupiter-3db6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145280665477:android:d1fc98ab76fa078d34e6ec",
+        "android_client_info": {
+          "package_name": "com.gks.jupiter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145280665477-mgmugpks10id7up3b8fjbvk23hsln32l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMABs0FsAvW3VJjhsli6_o4upmgc3IJLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145280665477-mgmugpks10id7up3b8fjbvk23hsln32l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "145280665477-m23laukldfon36bjthc9gnvec4qqvl6r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gks.jupiter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
