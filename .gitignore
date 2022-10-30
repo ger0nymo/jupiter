@@ -35,6 +35,9 @@ migrate_working_dir/
 # Web related
 lib/generated_plugin_registrant.dart
 
+# Contains api keys and other sensitive information
+lib/secrets.dart
+
 # Symbolication related
 app.*.symbols
 

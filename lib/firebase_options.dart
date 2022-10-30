@@ -3,7 +3,8 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
-import 'firebase_options.dart';
+import 'secrets.dart';
+
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
 /// Example:
@@ -53,8 +54,8 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBMABs0FsAvW3VJjhsli6_o4upmgc3IJLc',
-    appId: '1:145280665477:android:d1fc98ab76fa078d34e6ec',
+    apiKey: API_KEY,
+    appId: APP_ID,
     messagingSenderId: '145280665477',
     projectId: 'jupiter-3db6c',
     storageBucket: 'jupiter-3db6c.appspot.com',
