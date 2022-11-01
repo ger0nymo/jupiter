@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jupiter/screens/login_screen.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 Future main() async {
@@ -9,7 +11,9 @@ Future main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -21,32 +25,24 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        '/': (context) => MyHomePage(),
+        '/login': (context) => const LoginScreen(),
+      },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   final FirebaseAuth auth = FirebaseAuth.instance;
+
   User? user = FirebaseAuth.instance.currentUser;
 
   Future<UserCredential> signInWithGoogle() async {
@@ -63,17 +59,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return await auth.signInWithCredential(credential);
   }
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void signOutGoogle() async {
+    await GoogleSignIn().signOut();
+
+    print("User Signed Out");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Title'),
       ),
       body: Center(
         child: Column(
@@ -85,20 +81,32 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () async {
                       await signInWithGoogle();
                       setState(() {
-                        user = auth.currentUser;
+                        user = FirebaseAuth.instance.currentUser;
                       });
                     },
                     child: const Text('Sign in with Google'),
                   )
-                : Text('Signed in as ${user?.displayName}'),
+                : Column(
+                    children: <Widget>[
+                      Text('Signed in as ${user?.email}'),
+                      ElevatedButton(
+                        onPressed: () async {
+                          setState(() {
+                            user = null;
+                          });
+                          signOutGoogle();
+                        },
+                        child: const Text('Sign out'),
+                      ),
+                      TextButton(
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/login'),
+                          child: const Text('Go to Login Screen'))
+                    ],
+                  ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
